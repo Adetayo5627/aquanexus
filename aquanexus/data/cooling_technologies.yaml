@@ -1,0 +1,63 @@
+# cooling_technologies.yaml
+#
+# Parameter ranges are literature-derived typical industry ranges
+# (commonly cited in ASHRAE / Uptime Institute / industry cooling-efficiency
+# surveys), NOT measured values from a specific facility and NOT a peer-reviewed
+# citation. Confidence is "estimated" unless otherwise noted. All values are
+# editable — treat as engineering starting points for an MVP, not procurement
+# specifications.
+
+air_cooling:
+  label: "Conventional air cooling (CRAC/CRAH)"
+  wue_l_per_kwh: 0.05
+  pue_typical: 1.5
+  ambient_temp_sensitivity: high      # efficiency drops sharply above ~40C
+  max_operating_load_pct: 100
+  capex_relative: 1.0                 # normalized to 1.0 = baseline
+  opex_relative: 1.3
+  resilience_note: "Least water-dependent option but most energy-sensitive to ambient heat, a key MENA vulnerability."
+  confidence: estimated
+
+evaporative_cooling:
+  label: "Evaporative cooling (cooling towers)"
+  wue_l_per_kwh: 2.1
+  pue_typical: 1.25
+  ambient_temp_sensitivity: medium
+  max_operating_load_pct: 100
+  capex_relative: 1.1
+  opex_relative: 1.0
+  resilience_note: "High water dependence is a direct liability under water-stress or desalination-capacity-constrained scenarios."
+  confidence: estimated
+
+hybrid_air_evaporative:
+  label: "Hybrid air/evaporative cooling"
+  wue_l_per_kwh: 1.0
+  pue_typical: 1.3
+  ambient_temp_sensitivity: medium
+  max_operating_load_pct: 100
+  capex_relative: 1.3
+  opex_relative: 1.1
+  resilience_note: "Can shift toward air-only mode during water stress at an energy penalty; more operationally flexible than pure evaporative."
+  confidence: estimated
+
+direct_to_chip_liquid:
+  label: "Direct-to-chip liquid cooling"
+  wue_l_per_kwh: 0.2
+  pue_typical: 1.15
+  ambient_temp_sensitivity: low
+  max_operating_load_pct: 100
+  capex_relative: 1.8
+  opex_relative: 0.9
+  resilience_note: "Low water and moderate energy footprint; higher upfront cost and requires liquid-cooling-ready IT hardware."
+  confidence: estimated
+
+immersion_cooling:
+  label: "Immersion cooling"
+  wue_l_per_kwh: 0.02
+  pue_typical: 1.07
+  ambient_temp_sensitivity: very_low
+  max_operating_load_pct: 100
+  capex_relative: 2.2
+  opex_relative: 0.8
+  resilience_note: "Best water and energy performance in this model but highest capex and least mature deployment base at hyperscale in MENA."
+  confidence: estimated

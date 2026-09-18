@@ -1,0 +1,31 @@
+# water_profiles.yaml
+# Water source configuration parameters. Confidence: estimated unless noted.
+
+desalinated:
+  label: "Desalinated freshwater (SWRO)"
+  freshwater_dependency: high
+  water_reliability_pct: 95
+  drought_sensitivity: low            # desalination capacity is largely drought-independent
+  water_stress_sensitivity: medium    # but consumes energy and adds grid load during stress
+  relative_cost_per_m3: 1.0           # normalized baseline
+  confidence: estimated
+
+reclaimed:
+  label: "Reclaimed / non-potable (treated wastewater, TSE)"
+  freshwater_dependency: low
+  water_reliability_pct: 85
+  drought_sensitivity: medium
+  water_stress_sensitivity: low
+  relative_cost_per_m3: 0.4
+  confidence: estimated
+  note: "Lower cost and lower freshwater competition, but availability depends on local wastewater treatment infrastructure capacity."
+
+hybrid_supply:
+  label: "Hybrid (desalinated primary + reclaimed backup)"
+  freshwater_dependency: medium
+  water_reliability_pct: 97
+  drought_sensitivity: low
+  water_stress_sensitivity: low
+  relative_cost_per_m3: 0.7
+  confidence: estimated
+  note: "Blends reliability of desalination with reduced freshwater dependency; modeled as weighted average of the two source profiles."
