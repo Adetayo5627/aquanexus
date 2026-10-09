@@ -1,0 +1,47 @@
+# chip_side.yaml
+#
+# Chip/rack-side heat REMOVAL method: how heat gets out of the servers and
+# into a working fluid (air or liquid). This is deliberately separated from
+# heat_rejection.yaml (how that heat is then dumped to the outside
+# environment), per the architectural fix recommended in external review:
+# "Immersion and direct-to-chip cooling describe how heat is removed from
+# the chips. The water use depends on how that heat is then rejected to the
+# outside air." Water use effectiveness therefore lives entirely in
+# heat_rejection.yaml, not here.
+#
+# pue_overhead_chip: the PUE contribution (above 1.0, pure IT load) from this
+# chip-side approach under normal ambient conditions. Lower = better heat
+# capture efficiency at the chip.
+# temp_tolerance_c: approximate inlet/coolant temperature above which this
+# chip-side approach needs more aggressive (energy-costly) support. Air
+# figure is consistent with ASHRAE TC9.9 allowable inlet ranges (class A2
+# allows up to ~35C); liquid figures are higher since liquid loops can run
+# warmer before component temperatures become a concern.
+# degradation_per_degree_chip: ENGINEERING ASSUMPTION, PUE overhead growth
+# rate per degree C above temp_tolerance_c. Editable.
+# All confidence: estimated (literature-derived typical ranges, not a
+# specific peer-reviewed facility study).
+
+air:
+  label: "Air-cooled racks (CRAC/CRAH)"
+  pue_overhead_chip: 0.35
+  temp_tolerance_c: 35
+  degradation_per_degree_chip: 0.02
+  capex_relative: 1.0
+  confidence: estimated
+
+direct_to_chip:
+  label: "Direct-to-chip liquid"
+  pue_overhead_chip: 0.12
+  temp_tolerance_c: 45
+  degradation_per_degree_chip: 0.01
+  capex_relative: 1.6
+  confidence: estimated
+
+immersion:
+  label: "Immersion (chip/rack level)"
+  pue_overhead_chip: 0.05
+  temp_tolerance_c: 50
+  degradation_per_degree_chip: 0.005
+  capex_relative: 2.0
+  confidence: estimated
