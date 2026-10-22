@@ -1,0 +1,51 @@
+# heat_rejection.yaml
+#
+# How heat captured at the chip/rack is rejected to the outside environment.
+# Water use effectiveness lives here, not in chip_side.yaml, since WUE
+# depends on the rejection method, not the chip-side heat removal approach.
+#
+# temp_basis: "dry_bulb" for air-based rejection (dry coolers respond to dry
+# air temperature); "wet_bulb" for water-based/evaporative rejection
+# (cooling towers and adiabatic systems respond to wet-bulb temperature,
+# since evaporation rate depends on humidity, not just dry-bulb heat).
+# Wet-bulb temperature is estimated from dry-bulb temperature and relative
+# humidity using Stull's (2011) empirical approximation (R. Stull, "Wet-Bulb
+# Temperature from Relative Humidity and Air Temperature," Journal of
+# Applied Meteorology and Climatology, 50(11), 2267-2269), implemented in
+# models/cooling.py.
+#
+# threshold_c: approximate temperature (on the relevant basis) above which
+# this rejection method needs more energy to maintain performance.
+# degradation_per_degree: ENGINEERING ASSUMPTION, PUE overhead growth rate
+# per degree above threshold. Editable.
+# All confidence: estimated.
+
+dry_cooler:
+  label: "Dry cooler (air-cooled condenser, no water)"
+  wue_l_per_kwh: 0.02
+  pue_overhead_rejection: 0.25
+  temp_basis: "dry_bulb"
+  threshold_c: 30
+  degradation_per_degree: 0.02
+  capex_relative: 1.0
+  confidence: estimated
+
+adiabatic:
+  label: "Adiabatic (evaporative pre-cooling + dry heat exchange)"
+  wue_l_per_kwh: 0.4
+  pue_overhead_rejection: 0.15
+  temp_basis: "wet_bulb"
+  threshold_c: 24
+  degradation_per_degree: 0.015
+  capex_relative: 1.2
+  confidence: estimated
+
+cooling_tower:
+  label: "Cooling tower (open/closed-circuit evaporative)"
+  wue_l_per_kwh: 2.0
+  pue_overhead_rejection: 0.08
+  temp_basis: "wet_bulb"
+  threshold_c: 28
+  degradation_per_degree: 0.01
+  capex_relative: 1.1
+  confidence: estimated
